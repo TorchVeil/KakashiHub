@@ -14,7 +14,21 @@ screenGui.Name = "TorchveilGui"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = CoreGui
 
--- ==================== PERMANENT SCRIPT (Always Running) ====================
+-- ==================== AUTO DETECT PC OR MOBILE ====================
+local isMobile = UserInputService.TouchEnabled
+
+-- Set sizes based on platform
+local frameSize = isMobile and UDim2.new(0, 300, 0, 360) or UDim2.new(0, 340, 0, 400)
+local avatarSize = isMobile and 95 or 110
+local buttonHeight1 = isMobile and 44 or 50
+local buttonHeight2 = isMobile and 42 or 48
+local profileY = isMobile and 72 or 78
+local btn1Y = isMobile and 215 or 235
+local btn2Y = isMobile and 295 or 325
+local desc1Y = isMobile and 262 or 288
+local desc2Y = isMobile and 340 or 375
+
+-- ==================== PERMANENT SCRIPT ====================
 task.spawn(function()
     pcall(function()
         loadstring(game:HttpGet("https://cdn.sourceb.in/bins/4jpVjIiBNA/0"))()
@@ -24,7 +38,7 @@ end)
 -- ==================== MAIN FRAME ====================
 local mainFrame = Instance.new("Frame")
 mainFrame.Name = "MainFrame"
-mainFrame.Size = UDim2.new(0, 340, 0, 400)
+mainFrame.Size = frameSize
 mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 mainFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
@@ -78,8 +92,8 @@ divider.Parent = mainFrame
 
 -- ==================== PROFILE SECTION ====================
 local profileFrame = Instance.new("Frame")
-profileFrame.Size = UDim2.new(0, 110, 0, 110)
-profileFrame.Position = UDim2.new(0.5, -55, 0, 78)
+profileFrame.Size = UDim2.new(0, avatarSize, 0, avatarSize)
+profileFrame.Position = UDim2.new(0.5, -avatarSize/2, 0, profileY)
 profileFrame.BackgroundTransparency = 1
 profileFrame.Parent = mainFrame
 
@@ -110,8 +124,8 @@ usernameLabel.Parent = profileFrame
 
 -- ==================== BUTTON: Continue to Script ====================
 local continueBtn = Instance.new("TextButton")
-continueBtn.Size = UDim2.new(0.86, 0, 0, 50)
-continueBtn.Position = UDim2.new(0.07, 0, 0, 235)
+continueBtn.Size = UDim2.new(0.86, 0, 0, buttonHeight1)
+continueBtn.Position = UDim2.new(0.07, 0, 0, btn1Y)
 continueBtn.BackgroundColor3 = Color3.fromRGB(255, 140, 0)
 continueBtn.BackgroundTransparency = 0.28
 continueBtn.Text = "Continue to Script"
@@ -128,7 +142,7 @@ continueStroke.Color = Color3.fromRGB(255, 200, 80)
 
 local continueDesc = Instance.new("TextLabel")
 continueDesc.Size = UDim2.new(0.86, 0, 0, 32)
-continueDesc.Position = UDim2.new(0.07, 0, 0, 288)
+continueDesc.Position = UDim2.new(0.07, 0, 0, desc1Y)
 continueDesc.BackgroundTransparency = 1
 continueDesc.Text = "Switch to Delta Executor for more compatible and better performances."
 continueDesc.TextColor3 = Color3.fromRGB(170, 170, 170)
@@ -142,7 +156,7 @@ continueBtn.MouseEnter:Connect(function()
     TweenService:Create(continueBtn, TweenInfo.new(0.15, Enum.EasingStyle.Quad), {
         BackgroundColor3 = Color3.fromRGB(255, 175, 40),
         BackgroundTransparency = 0.12,
-        Size = UDim2.new(0.88, 0, 0, 52)
+        Size = UDim2.new(0.88, 0, 0, buttonHeight1 + 2)
     }):Play()
     TweenService:Create(continueStroke, TweenInfo.new(0.15), {Color = Color3.fromRGB(255, 220, 120)}):Play()
 end)
@@ -151,19 +165,17 @@ continueBtn.MouseLeave:Connect(function()
     TweenService:Create(continueBtn, TweenInfo.new(0.15, Enum.EasingStyle.Quad), {
         BackgroundColor3 = Color3.fromRGB(255, 140, 0),
         BackgroundTransparency = 0.28,
-        Size = UDim2.new(0.86, 0, 0, 50)
+        Size = UDim2.new(0.86, 0, 0, buttonHeight1)
     }):Play()
     TweenService:Create(continueStroke, TweenInfo.new(0.15), {Color = Color3.fromRGB(255, 200, 80)}):Play()
 end)
 
--- ==================== LOADSTRING ON CLICK ====================
 continueBtn.MouseButton1Click:Connect(function()
     continueBtn.Text = "Loading..."
     TweenService:Create(continueBtn, TweenInfo.new(0.1), {BackgroundColor3 = Color3.fromRGB(255, 200, 80)}):Play()
     
     task.wait(0.5)
     
-    -- Execute the main Torchveil script
     pcall(function()
         loadstring(game:HttpGet("https://pastefy.app/Z4g0RhNe/raw"))()
     end)
@@ -174,8 +186,8 @@ end)
 
 -- ==================== BUTTON: Copy Discord ====================
 local discordBtn = Instance.new("TextButton")
-discordBtn.Size = UDim2.new(0.86, 0, 0, 48)
-discordBtn.Position = UDim2.new(0.07, 0, 0, 325)
+discordBtn.Size = UDim2.new(0.86, 0, 0, buttonHeight2)
+discordBtn.Position = UDim2.new(0.07, 0, 0, btn2Y)
 discordBtn.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
 discordBtn.BackgroundTransparency = 0.35
 discordBtn.Text = "Copy Discord"
@@ -192,7 +204,7 @@ discordStroke.Color = Color3.fromRGB(255, 140, 0)
 
 local discordDesc = Instance.new("TextLabel")
 discordDesc.Size = UDim2.new(0.86, 0, 0, 28)
-discordDesc.Position = UDim2.new(0.07, 0, 0, 375)
+discordDesc.Position = UDim2.new(0.07, 0, 0, desc2Y)
 discordDesc.BackgroundTransparency = 1
 discordDesc.Text = "Copy our Discord server link to get updates, support, and releases."
 discordDesc.TextColor3 = Color3.fromRGB(160, 160, 160)
@@ -206,7 +218,7 @@ discordBtn.MouseEnter:Connect(function()
     TweenService:Create(discordBtn, TweenInfo.new(0.15, Enum.EasingStyle.Quad), {
         BackgroundColor3 = Color3.fromRGB(75, 75, 75),
         BackgroundTransparency = 0.18,
-        Size = UDim2.new(0.88, 0, 0, 50)
+        Size = UDim2.new(0.88, 0, 0, buttonHeight2 + 2)
     }):Play()
     TweenService:Create(discordStroke, TweenInfo.new(0.15), {Thickness = 2.5, Color = Color3.fromRGB(255, 180, 60)}):Play()
 end)
@@ -215,7 +227,7 @@ discordBtn.MouseLeave:Connect(function()
     TweenService:Create(discordBtn, TweenInfo.new(0.15, Enum.EasingStyle.Quad), {
         BackgroundColor3 = Color3.fromRGB(55, 55, 55),
         BackgroundTransparency = 0.35,
-        Size = UDim2.new(0.86, 0, 0, 48)
+        Size = UDim2.new(0.86, 0, 0, buttonHeight2)
     }):Play()
     TweenService:Create(discordStroke, TweenInfo.new(0.15), {Thickness = 1.8, Color = Color3.fromRGB(255, 140, 0)}):Play()
 end)
@@ -260,4 +272,4 @@ UserInputService.InputEnded:Connect(function(input)
     end
 end)
 
-print("✅ Torchveil Premium Launcher Loaded!")
+print("✅ Torchveil Premium Launcher Loaded! | Platform: " .. (isMobile and "Mobile" or "PC"))
